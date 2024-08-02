@@ -1,0 +1,48 @@
+Hypothetical Computational Model for Oil of Wintergreen Extraction
+
+1) defining the extraction process 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Hypothetical parameters for the extraction process
+def extraction_efficiency(temperature, solvent_factor, time):
+    """
+    Simulate extraction efficiency based on temperature, solvent type, and extraction time.
+    
+    Parameters:
+    temperature (float): Temperature in Celsius
+    solvent_factor (float): A factor representing the efficiency of the solvent (e.g., 1.0 for ethanol, 0.8 for water)
+    time (float): Extraction time in minutes
+    
+    Returns:
+    float: Extraction efficiency as a percentage
+    """
+    # Constants based on hypothetical data
+    max_efficiency = 0.85  # Maximum achievable efficiency
+    temp_optimum = 50.0  # Optimal temperature for extraction
+    time_factor = 0.02  # Factor representing the effect of time on extraction
+    
+    # Efficiency calculation (hypothetical model)
+    efficiency = max_efficiency * solvent_factor * np.exp(-((temperature - temp_optimum)**2 / (2 * (temp_optimum/3)**2))) * (1 - np.exp(-time_factor * time))
+    return efficiency * 100
+
+# Parameters
+temperatures = np.linspace(30, 70, 100)  # Range of temperatures
+solvent_factors = [1.0, 0.8, 0.6]  # Different solvents
+times = [10, 30, 60]  # Different extraction times
+
+# Plotting the results
+plt.figure(figsize=(12, 8))
+for solvent_factor in solvent_factors:
+    for time in times:
+        efficiencies = [extraction_efficiency(temp, solvent_factor, time) for temp in temperatures]
+        plt.plot(temperatures, efficiencies, label=f'Solvent factor: {solvent_factor}, Time: {time} min')
+
+plt.xlabel('Temperature (C)')
+plt.ylabel('Extraction Efficiency (%)')
+plt.title('Extraction Efficiency of Oil of Wintergreen')
+plt.legend()
+plt.grid(True)
+plt.show()
+
